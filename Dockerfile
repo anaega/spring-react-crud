@@ -1,7 +1,9 @@
 # Fetching latest version of Java
 FROM eclipse-temurin:17.0.7_7-jre
+
 # Setting up work directory
 WORKDIR /app
+
 # Copy the jar file into our app
 COPY ./target/project-app.jar /app
 
