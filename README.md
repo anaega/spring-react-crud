@@ -112,3 +112,18 @@ rewriting  almost all from scratch and adding a lot of features, like Bootstrap,
 client side validations, routing, updating dependencies to major versions ...
 
 2015-2023  |  Apache-2.0
+
+
+Ana's notes
+-----
+
+to build image
+
+	$ docker build -t project-app-image .
+
+to run container
+
+	$ docker run -p 8080:8080 project-app-image 
+
+
+

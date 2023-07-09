@@ -70,6 +70,8 @@
 	</dependencies>
 
 	<build>
+		<finalName>project-app</finalName>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
