@@ -3,6 +3,10 @@ pipeline {
     options {
             timestamps()
         }
+   environment {
+           MAVEN_HOME= '/usr/local/apache-maven-3.9.3'
+           M2_HOME= '/usr/local/apache-maven-3.9.3'
+       }
 //     tools {
 //           maven 'Maven 3.9.2'
 //           jdk 'openjdk17'
