@@ -3,10 +3,10 @@ pipeline {
     options {
             timestamps()
         }
-    tools {
-          maven 'Maven 3.9.2'
-          jdk 'openjdk17'
-        }
+//     tools {
+//           maven 'Maven 3.9.2'
+//           jdk 'openjdk17'
+//         }
     stages {
 
     	stage('Which Java?') {
