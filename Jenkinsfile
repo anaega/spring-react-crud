@@ -11,6 +11,7 @@ pipeline {
 
     	stage('Which Java?') {
             steps {
+            	sh 'printenv'
                 sh 'java --version'
                 sh 'mvn --version'
             }
