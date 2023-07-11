@@ -6,6 +6,7 @@ pipeline {
    environment {
            MAVEN_HOME= '/usr/local/apache-maven-3.9.3'
            M2_HOME= '/usr/local/apache-maven-3.9.3'
+           PATH='$M2_HOME/bin:$PATH'
        }
 //     tools {
 //           maven 'Maven 3.9.2'
