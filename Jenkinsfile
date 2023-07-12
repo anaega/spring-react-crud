@@ -25,5 +25,20 @@ pipeline {
                 sh 'mvn test'
             }
         }
+        stage('Create Docker image') {
+        	steps {
+                sh 'docker build -t project-app-image .'
+            }
+        }
+        stage('Push to Dockerhub') {
+        	steps {
+//                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+//             	sh 'docker push anaega/project-app-image'
+
+				withDockerRegistry([ credentialsId: "dockerhub_id", url: "" ]) {
+        d		ockerImage.push()
+            }
+        }
+
     }
 }
