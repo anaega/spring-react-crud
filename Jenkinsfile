@@ -36,9 +36,8 @@ pipeline {
 //             	sh 'docker push anaega/project-app-image'
 
 				withDockerRegistry([ credentialsId: "dockerhub_id", url: "" ]) {
-        d		ockerImage.push()
+        		dockerImage.push()
             }
         }
-
     }
 }
