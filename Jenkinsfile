@@ -4,14 +4,10 @@ pipeline {
             timestamps()
         }
    environment {
-           MAVEN_HOME= '/usr/local/apache-maven-3.9.3'
-           M2_HOME= '/usr/local/apache-maven-3.9.3'
+//            MAVEN_HOME= '/usr/local/apache-maven-3.9.3'
+//            M2_HOME= '/usr/local/apache-maven-3.9.3'
            PATH='/usr/local/apache-maven-3.9.3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
        }
-//     tools {
-//           maven 'Maven 3.9.2'
-//           jdk 'openjdk17'
-//         }
     stages {
 
     	stage('Which Java?') {
