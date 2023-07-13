@@ -47,7 +47,8 @@ pipeline {
 //						}
 //					}
 				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-				sh 'docker push anaega/app:project-app-image'
+				sh 'docker tag project-app-image anaega/project-app-image'
+				sh 'docker push anaega/project-app-image'
         		}
 	post {
 		always {

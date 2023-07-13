@@ -125,5 +125,13 @@ to run container
 
 	$ docker run -p 8089:8080 project-app-image 
 
+tag image
+
+	$ docker tag project-app-image anaega/project-app-image
+
+push image
+
+	$ docker push anaega/project-app-image
+
 
 
