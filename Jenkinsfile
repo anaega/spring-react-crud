@@ -33,12 +33,8 @@ pipeline {
         }
 
         stage('Push to Dockerhub') {
-        	steps {
-//                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-//             	sh 'docker push anaega/project-app-image'
 
-// 				withDockerRegistry([ credentialsId: "dockerhub_id", url: "" ]) {
-//         		dockerImage.push()
+			steps {
 				script {
 					docker.withRegistry( '', registryCredential ) {
 						dockerImage.push()
@@ -46,6 +42,5 @@ pipeline {
 					}
         		}
             }
-        }
     }
 }
