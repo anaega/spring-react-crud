@@ -16,14 +16,10 @@ pipeline {
 //                 sh 'mvn --version'
 //             }
 //         }
-		stage('Test') {
+x/
+		stage('Test and Build') {
 			steps {
-				sh 'mvn test'
-			}
-		}
-		stage('Build') {
-			steps {
-				sh 'mvn clean package'
+				sh 'mvn clean verify'
 			}
 		}
 
