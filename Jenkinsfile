@@ -16,7 +16,7 @@ pipeline {
 //                 sh 'mvn --version'
 //             }
 //         }
-x/
+
 		stage('Test and Build') {
 			steps {
 				sh 'mvn clean verify'
