@@ -2,7 +2,7 @@ pipeline {
 	agent any
 	options {
 		timestamps()
-		buildDiscarder(logRotator(numToKeepStr: '15'))
+		buildDiscarder(logRotator(numToKeepStr: '20'))
 	}
 	environment {
 		PATH = '/usr/local/apache-maven-3.9.3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
