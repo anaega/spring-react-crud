@@ -43,7 +43,7 @@ pipeline {
 
 		stage('Check container') {
 			steps {
-				sh 'docker run -p 8089:8080 project-app-image'
+				sh 'docker run -d -p 8089:8080 project-app-image -name container-app'
 				sh 'curl -v -X GET http://localhost:8089/api/'
 
 			}
