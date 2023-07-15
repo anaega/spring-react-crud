@@ -26,14 +26,14 @@ pipeline {
 
 		stage('Create Docker image') {
 			steps {
-				sh 'docker build -t project-app-image:latest .'
+				sh 'docker build -t project-app-image .'
 			}
 		}
 
 		stage('Push to Dockerhub') {
 			steps {
 				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-				sh 'docker tag project-app-image:latest anaega/project-app-image:${VERSION}'
+				sh 'docker tag project-app-image anaega/project-app-image:${VERSION}'
 				sh 'docker push anaega/project-app-image'
 
 			}
