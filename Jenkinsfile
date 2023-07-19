@@ -33,7 +33,8 @@ pipeline {
 		stage('Check container') {
 			steps {
 				sh 'docker run --name container-app -d -p  8089:8080 project-app-image'
-				sh 'HTTP_STATUS=curl --user "frodo@local:admin"  -i -s -o /dev/null -w "%{http_code}\\n"   http://localhost:8089/api/'
+//				sh 'HTTP_STATUS=curl --user "frodo@local:admin"  -i -s -o /dev/null -w "%{http_code}\\n"   http://localhost:8089/api/'
+				sh 'HTTP_STATUS=$(curl -i -s -o /dev/null -w \\"%{http_code}\\n\\"   http://localhost:8089/api/)'
 
 			}
 		}
@@ -41,7 +42,7 @@ pipeline {
 		stage('Push to Dockerhub') {
 			steps {
 				script {
-					if (HTTP_STATUS == '200') {
+					if ($HTTP_STATUS == '200') {
 						sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 						sh 'docker tag project-app-image anaega/project-app-image:${VERSION}'
 						sh 'docker push anaega/project-app-image:${VERSION}'
