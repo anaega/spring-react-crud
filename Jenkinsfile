@@ -30,6 +30,14 @@ pipeline {
 			}
 		}
 
+		stage('Check container') {
+			steps {
+				sh 'docker run --name container-app -d -p  8089:8080 project-app-image'
+				sh 'curl --user "frodo@local:admin"  -i -s -o /dev/null -w "%{http_code}\\n"   http://localhost:8089/api/'
+
+			}
+		}
+
 		stage('Push to Dockerhub') {
 			steps {
 				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
@@ -39,13 +47,6 @@ pipeline {
 			}
 		}
 
-		stage('Check container') {
-			steps {
-				sh 'docker run -d -p 8089:8080 project-app-image'
-				sh 'curl -v -X GET http://localhost:8089/api/'
-
-			}
-		}
 	}
 	post {
 		always {
