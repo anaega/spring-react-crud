@@ -39,14 +39,17 @@ pipeline {
 		}
 
 		stage('Push to Dockerhub') {
-				if(HTTP_STATUS == '200') {
-					sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-					sh 'docker tag project-app-image anaega/project-app-image:${VERSION}'
-					sh 'docker push anaega/project-app-image:${VERSION}'
+			steps {
+				script {
+					if (HTTP_STATUS == '200') {
+						sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+						sh 'docker tag project-app-image anaega/project-app-image:${VERSION}'
+						sh 'docker push anaega/project-app-image:${VERSION}'
+					} else {
+						sh "echo 'Container not running!'"
+					}
 				}
-				else{
-					sh "echo 'Container not running!'"
-				}
+			}
 		}
 
 	}
