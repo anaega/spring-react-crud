@@ -34,7 +34,8 @@ pipeline {
 			steps {
 				sh 'docker run --name container-app -d -p  8089:8080 project-app-image'
 //				sh 'HTTP_STATUS=curl --user "frodo@local:admin"  -i -s -o /dev/null -w "%{http_code}\\n"   http://localhost:8089/api/'
-				sh 'HTTP_STATUS=$(curl -i -s -o /dev/null -w \\"%{http_code}\\n\\"   http://localhost:8089/api/)'
+				sleep(30)
+				sh 'HTTP_STATUS=$(curl -i -s -o /dev/null -w \\"%{http_code}\\\n\\"   http://localhost:8089/api/)'
 
 			}
 		}
