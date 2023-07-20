@@ -53,6 +53,7 @@ pipeline {
 		stage('Push to Dockerhub') {
 			steps {
 				script {
+					echo "test"
 					echo "${env.STATUS}"
 					if (${env.STATUS} == "401") {
 //						sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
