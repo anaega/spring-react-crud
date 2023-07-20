@@ -37,14 +37,13 @@ pipeline {
 		stage('Check container') {
 			steps {
 				script {
-//					def STATUS = ""
-//					env.STATUS = STATUS
 
 //					sh 'docker run --name container-app -d -p  8089:8080 project-app-image'
 //					sh 'STATUS=curl --user "frodo@local:admin"  -i -s -o /dev/null -w "%{http_code}\\n"   http://localhost:8089/api/'
 //					sleep(60)
+					sh "echo Hello ${STATUS}"
 					sh 'STATUS=$(curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/)'
-					sh 'echo  "${STATUS}"'
+					sh "echo  ${STATUS}"
 					echo "blabla"
 				}
 
