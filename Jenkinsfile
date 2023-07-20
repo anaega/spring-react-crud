@@ -36,8 +36,8 @@ pipeline {
 
 //					sh 'docker run --name container-app -d -p  8089:8080 project-app-image'
 //					sh 'HTTP_STATUS=curl --user "frodo@local:admin"  -i -s -o /dev/null -w "%{http_code}\\n"   http://localhost:8089/api/'
-					sleep(60)
-					sh ' def HTTP_STATUS=$(curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/)'
+//					sleep(60)
+					sh 'HTTP_STATUS=$(curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/)'
 					env.$HTTP_STATUS = HTTP_STATUS
 					sh 'echo $HTTP_STATUS'
 				}
