@@ -42,7 +42,7 @@ pipeline {
 //					sleep(60)
 					sh 'STATUS=$(curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/)'
 //					env.STATUS = STATUS
-					sh "echo  ${STATUS}"
+					sh "echo  $STATUS"
 					sh "echo blabla"
 				}
 
