@@ -12,7 +12,7 @@ pipeline {
 		DOCKERHUB_CREDENTIALS = credentials('dockerhub_id')
 		VERSION = "${env.GIT_COMMIT}"
 		STATUS = "xxx"
-		CONTAINER_NAME = "container_app"
+		CONTAINER_NAME = "container-app"
 	}
 	stages {
 //     	stage('Which Java?') {
@@ -39,7 +39,7 @@ pipeline {
 			steps {
 				script {
 
-					sh 'docker run --name ${CONTAINER_NAME} -app -d -p  8089:8080 project-app-image'
+					sh 'docker run --name ${CONTAINER_NAME} -d -p  8089:8080 project-app-image'
 //					sh 'STATUS=curl --user "frodo@local:admin"  -i -s -o /dev/null -w "%{http_code}\\n"   http://localhost:8089/api/'
 					sleep(40)
 					STATUS = sh(script: 'curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/', returnStdout: true).toString().trim()
