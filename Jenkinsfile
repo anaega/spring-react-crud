@@ -60,7 +60,7 @@ pipeline {
 			steps {
 				script {
 					echo "test"
-					if (${STATUS} == 401) {
+					if (STATUS == '401') {
 //						sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 //						sh 'docker tag project-app-image anaega/project-app-image:${VERSION}'
 //						sh 'docker push anaega/project-app-image:${VERSION}'
