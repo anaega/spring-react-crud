@@ -53,7 +53,7 @@ pipeline {
 		stage('Push to Dockerhub') {
 			steps {
 				script {
-					${env.test_var}
+					echo "${env.STATUS}"
 					if (${env.STATUS} == "401") {
 //						sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 //						sh 'docker tag project-app-image anaega/project-app-image:${VERSION}'
