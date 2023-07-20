@@ -45,7 +45,7 @@ pipeline {
 
 
 //					CYPRESS_VERSION = sh(script: "npm show cypress version", returnStdout: true).toString().trim()
-					STATUS = sh(script: 'curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/)', returnStdout: true).toString().trim()
+					STATUS = sh(script: 'curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/', returnStdout: true).toString().trim()
 
 
 //					sh 'STATUS=$(curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/)'
