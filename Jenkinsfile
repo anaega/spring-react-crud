@@ -39,7 +39,7 @@ pipeline {
 //					sleep(60)
 					sh 'HTTP_STATUS=$(curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/)'
 //					env.HTTP_STATUS = HTTP_STATUS
-					sh 'echo  ${HTTP_STATUS}'
+//					sh 'echo  ${HTTP_STATUS}'
 				}
 
 			}
