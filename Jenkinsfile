@@ -64,6 +64,12 @@ pipeline {
 			}
 		}
 
+		stage('Deploy to Kubernetes') {
+			steps {
+				sh "echo 'TO BE DONE'"
+			}
+		}
+
 	}
 	post {
 		always {
