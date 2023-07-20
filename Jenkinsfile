@@ -42,7 +42,13 @@ pipeline {
 //					sh 'STATUS=curl --user "frodo@local:admin"  -i -s -o /dev/null -w "%{http_code}\\n"   http://localhost:8089/api/'
 //					sleep(60)
 					sh "echo Hello ${STATUS}"
-					sh 'STATUS=$(curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/)'
+
+
+//					CYPRESS_VERSION = sh(script: "npm show cypress version", returnStdout: true).toString().trim()
+					STATUS = sh(script: 'curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/)', returnStdout: true).toString().trim()
+
+
+//					sh 'STATUS=$(curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/)'
 					sh "echo  ${STATUS}"
 					echo "blabla"
 				}
