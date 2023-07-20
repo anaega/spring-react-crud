@@ -49,7 +49,7 @@ pipeline {
 
 
 //					sh 'STATUS=$(curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/)'
-					echo  "status este ${STATUS}"
+					sh "echo status is ${STATUS}"
 					echo "blabla"
 				}
 
