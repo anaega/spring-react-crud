@@ -43,7 +43,7 @@ pipeline {
 //					sh 'STATUS=curl --user "frodo@local:admin"  -i -s -o /dev/null -w "%{http_code}\\n"   http://localhost:8089/api/'
 //					sleep(60)
 					sh 'STATUS=$(curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/)'
-					sh "echo  ${STATUS}"
+					sh "echo  ${env.STATUS}"
 					sh "echo blabla"
 				}
 
@@ -53,7 +53,8 @@ pipeline {
 		stage('Push to Dockerhub') {
 			steps {
 				script {
-					if (STATUS == "401") {
+					${env.test_var}
+					if (${env.STATUS} == "401") {
 //						sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 //						sh 'docker tag project-app-image anaega/project-app-image:${VERSION}'
 //						sh 'docker push anaega/project-app-image:${VERSION}'
