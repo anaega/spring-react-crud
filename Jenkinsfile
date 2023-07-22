@@ -65,10 +65,12 @@ pipeline {
 
 		stage('Deploy to Kubernetes cluster') {
 			steps {
-				sh 'sed -i  '' -E  "s/(project-app-image:)(.*)/project-app-image:$VERSION/" my-deployment.yaml'
-				sh 'kubectl apply -f my-deployment.yaml'
-				sh 'kubectl apply -f my-service.yaml'
-				sh "echo 'TO BE DONE'"
+				script {
+					sh 'sed -i  ' ' -E  "s/(project-app-image:)(.*)/project-app-image:$VERSION/" my-deployment.yaml'
+					sh 'kubectl apply -f my-deployment.yaml'
+					sh 'kubectl apply -f my-service.yaml'
+					sh "echo 'TO BE DONE'"
+				}
 			}
 		}
 
