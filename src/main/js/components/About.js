@@ -15,6 +15,7 @@ class About extends React.Component {
         <h4>Authors</h4>
         <ul>
           <li><a href="mailto:mrsarm@gmail.com">Mariano Ruiz</a></li>
+          <li>Ana Morega</li>
         </ul>
         <p>
           <strong>Source Code</strong>:&nbsp;
