@@ -16,6 +16,6 @@ spec:
         spec:
             containers:
                 - name: container-app
-                  image: anaega/project-app-image:foo
+                  image: anaega/project-app-image:994850ec0ff8659665b30a8973e1edf284a29074
                   ports:
                       - containerPort: 8080
