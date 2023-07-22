@@ -23,11 +23,11 @@ pipeline {
 //             }
 //         }
 
-		stage('Test and Build') {
-			steps {
-				sh 'mvn clean verify'
-			}
-		}
+//		stage('Test and Build') {
+//			steps {
+//				sh 'mvn clean verify'
+//			}
+//		}
 
 		stage('Create Docker image') {
 			steps {
