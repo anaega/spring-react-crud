@@ -45,7 +45,7 @@ pipeline {
 
 					sh 'docker run --name ${CONTAINER_NAME} -d -p  8089:8080 project-app-image'
 //					sh 'STATUS=curl --user "frodo@local:admin"  -i -s -o /dev/null -w "%{http_code}\\n"   http://localhost:8089/api/'
-					sleep(80)
+					sleep(84)
 					STATUS = sh(script: 'curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/', returnStdout: true).toString().trim()
 					sh "echo status is ${STATUS}"
 				}
