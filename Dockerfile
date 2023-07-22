@@ -10,5 +10,5 @@ COPY ./target/project-app.jar /app
 # Exposing port 8080
 EXPOSE 8080
 
-# Starting the application
+# Tell the image what command it has to execute as it starts as a container
 CMD ["java", "-jar", "project-app.jar"]

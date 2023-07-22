@@ -45,7 +45,6 @@ pipeline {
 					STATUS = sh(script: 'curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/', returnStdout: true).toString().trim()
 					sh "echo status is ${STATUS}"
 				}
-
 			}
 		}
 
@@ -53,10 +52,10 @@ pipeline {
 			steps {
 				script {
 					if (STATUS == '401') {
+						sh "echo 'Container  running!'"
 						sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 						sh 'docker tag project-app-image anaega/project-app-image:${VERSION}'
 						sh 'docker push anaega/project-app-image:${VERSION}'
-						sh "echo 'Container  running!'"
 					} else {
 						sh "echo 'Container not running!'"
 					}
@@ -64,8 +63,11 @@ pipeline {
 			}
 		}
 
-		stage('Deploy to Kubernetes') {
+		stage('Deploy to Kubernetes cluster') {
 			steps {
+				sh 'sed -i  '' -E  "s/(project-app-image:)(.*)/project-app-image:$VERSION/" my-deployment.yaml'
+				sh 'kubectl apply -f my-deployment.yaml'
+				sh 'kubectl apply -f my-service.yaml'
 				sh "echo 'TO BE DONE'"
 			}
 		}

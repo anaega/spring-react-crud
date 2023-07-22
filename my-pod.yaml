@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: project-pod
+spec:
+    containers:
+        - name: container-app
+          image: anaega/project-app-image:3d7fd002b54372056a9d5d742588165b470cfaf9
+          ports:
+              - containerPort: 8080
