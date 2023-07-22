@@ -3,9 +3,9 @@
 
 pipeline {
 	agent any
-	triggers {
-		githubPush()
-	}
+//	triggers {
+//		githubPush()
+//	}
 
 	options {
 		timestamps()
