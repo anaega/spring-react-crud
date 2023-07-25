@@ -14,6 +14,7 @@ pipeline {
 	environment {
 		PATH = '/usr/local/apache-maven-3.9.3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
 		DOCKERHUB_CREDENTIALS = credentials('dockerhub_id')
+		APP_CREDENTIALS = credentials('app_credentials')
 		VERSION = "${env.GIT_COMMIT}"
 		STATUS = "xxx"
 		CONTAINER_NAME = "container-app"
@@ -42,12 +43,14 @@ pipeline {
 		stage('Check container') {
 			steps {
 				script {
-
 					sh 'docker run --name ${CONTAINER_NAME} -d -p  8089:8080 project-app-image'
+
 //					sh 'STATUS=curl --user "frodo@local:admin"  -i -s -o /dev/null -w "%{http_code}\\n"   http://localhost:8089/api/'
 					sleep(84)
-					STATUS = sh(script: 'curl -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/', returnStdout: true).toString().trim()
-					sh "echo status is ${STATUS}"
+					withCredentials([usernamePassword(credentialsId: 'app_credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+						STATUS = sh(script: 'curl -u $USERNAME:$PASSWORD -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/', returnStdout: true).toString().trim()
+						sh "echo status is ${STATUS}"
+					}
 				}
 			}
 		}
@@ -71,10 +74,10 @@ pipeline {
 			steps {
 				script {
 					sh '''sed -i  ' ' -E  "s/(project-app-image:)(.*)/project-app-image:$VERSION/" my-deployment.yaml'''
-					sh 'cat my-deployment.yaml'
+					sh 'cat my-deployment.yaml | grep $VERSION'
 					sh 'kubectl apply -f my-deployment.yaml'
 					sh 'kubectl apply -f my-service.yaml'
-					sh "echo 'TO BE DONE'"
+					echo "DEPLOYMENT DONE"
 				}
 			}
 		}
