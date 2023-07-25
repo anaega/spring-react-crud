@@ -3,9 +3,6 @@
 
 pipeline {
 	agent any
-//	triggers {
-//		githubPush()
-//	}
 
 	options {
 		timestamps()
@@ -13,21 +10,11 @@ pipeline {
 	}
 	environment {
 		PATH = '/usr/local/apache-maven-3.9.3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
-		DOCKERHUB_CREDENTIALS = credentials('dockerhub_id')
-		APP_CREDENTIALS = credentials('app_credentials')
 		VERSION = "${env.GIT_COMMIT}"
 		STATUS = "xxx"
 		CONTAINER_NAME = "container-app"
 	}
 	stages {
-//     	stage('Which Java?') {
-//             steps {
-//             	sh 'printenv'
-//                 sh 'java --version'
-//                 sh 'mvn --version'
-//             }
-//         }
-
 		stage('Test and Build') {
 			steps {
 				sh 'mvn clean verify'
@@ -44,12 +31,11 @@ pipeline {
 			steps {
 				script {
 					sh 'docker run --name ${CONTAINER_NAME} -d -p  8089:8080 project-app-image'
-
-//					sh 'STATUS=curl --user "frodo@local:admin"  -i -s -o /dev/null -w "%{http_code}\\n"   http://localhost:8089/api/'
-					sleep(84)
+					echo "Waiting for the application in container to start..."
+					sleep(80)
 					withCredentials([usernamePassword(credentialsId: 'app_credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
 						STATUS = sh(script: 'curl -u $USERNAME:$PASSWORD -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/', returnStdout: true).toString().trim()
-						sh "echo status is ${STATUS}"
+						echo "HTTP status is ${STATUS}"
 					}
 				}
 			}
@@ -58,13 +44,13 @@ pipeline {
 		stage('Push to Dockerhub') {
 			steps {
 				script {
-					if (STATUS == '401') {
-						sh "echo 'Container  running!'"
+					if (STATUS == '200') {
+						echo "Container  running!"
 						sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 						sh 'docker tag project-app-image anaega/project-app-image:${VERSION}'
 						sh 'docker push anaega/project-app-image:${VERSION}'
 					} else {
-						sh "echo 'Container not running!'"
+						echo "Container not running!"
 					}
 				}
 			}
@@ -77,6 +63,12 @@ pipeline {
 					sh 'cat my-deployment.yaml | grep $VERSION'
 					sh 'kubectl apply -f my-deployment.yaml'
 					sh 'kubectl apply -f my-service.yaml'
+					echo "Waiting for the application in kubernetes to start..."
+					sleep(80)
+					withCredentials([usernamePassword(credentialsId: 'app_credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+						STATUS = sh(script: 'curl -u $USERNAME:$PASSWORD -i -s -o /dev/null -w "%{http_code}" http://localhost:8090/api/', returnStdout: true).toString().trim()
+						echo "HTTP status is ${STATUS}"
+					}
 					echo "DEPLOYMENT DONE"
 				}
 			}
@@ -85,6 +77,7 @@ pipeline {
 	}
 	post {
 		always {
+			echo "Cleaning up..."
 			sh 'docker stop ${CONTAINER_NAME}'
 			sh 'docker rm ${CONTAINER_NAME}'
 			sh 'docker logout'
