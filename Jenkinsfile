@@ -11,6 +11,7 @@ pipeline {
 	environment {
 		PATH = '/usr/local/apache-maven-3.9.3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
 		VERSION = "${env.GIT_COMMIT}"
+		DOCKERHUB_CREDENTIALS = credentials('dockerhub_id')
 		STATUS = "xxx"
 		CONTAINER_NAME = "container-app"
 	}
