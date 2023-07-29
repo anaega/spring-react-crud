@@ -32,7 +32,7 @@ pipeline {
 				script {
 					sh 'docker run --name ${CONTAINER_NAME} -d -p  8089:8080 project-app-image'
 					echo "Waiting for the application in container to start..."
-					sleep(80)
+					sleep(100)
 					withCredentials([usernamePassword(credentialsId: 'app_credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
 						STATUS = sh(script: 'curl -u $USERNAME:$PASSWORD -i -s -o /dev/null -w "%{http_code}" http://localhost:8089/api/', returnStdout: true).toString().trim()
 						echo "HTTP status is ${STATUS}"
@@ -64,7 +64,7 @@ pipeline {
 					sh 'kubectl apply -f my-deployment.yaml'
 					sh 'kubectl apply -f my-service.yaml'
 					echo "Waiting for the application in kubernetes to start..."
-					sleep(80)
+					sleep(100)
 					withCredentials([usernamePassword(credentialsId: 'app_credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
 						STATUS = sh(script: 'curl -u $USERNAME:$PASSWORD -i -s -o /dev/null -w "%{http_code}" http://localhost:8090/api/', returnStdout: true).toString().trim()
 						echo "HTTP status is ${STATUS}"
